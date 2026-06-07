@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Create refactor spec",
+  "description": "Creating feature spec for Japan Tour booking site refactoring project",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "git add . && git commit -m \"refactor: migrate from GSAP to Framer Motion for scroll-linked animations\""
+  }
+}

@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 78 87% 73%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 36 48% 90%;
+    --secondary-foreground: 0 0% 4%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 53%;
+    --accent: 349 100% 86%;
+    --accent-foreground: 0 0% 4%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 78 87% 73%;
+    --radius: 0.625rem;
+
+    /* Custom Design Tokens */
+    --mist-black: #0A0A0A;
+    --mountain-cream: #F5E8D3;
+    --kimono-white: #FAFAFA;
+    --lime-accent: #D4F87A;
+    --sakura-pink: #FFB7C5;
+    --mouse-gray: #888888;
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.04);
+
+    /* Easing */
+    --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--mist-black);
+    color: var(--kimono-white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--lime-accent);
+    color: var(--mist-black);
+  }
+
+  /* Hide the OS cursor where the custom cursor is active (lg+, fine pointer).
+     Matches CustomCursor's `hidden lg:block` (1024px) so touch/coarse devices
+     keep their native pointer. */
+  @media (min-width: 1024px) and (pointer: fine) {
+    body,
+    body a,
+    body button,
+    body [data-cursor-hover] {
+      cursor: none;
+    }
+  }
+
+  /* Respect prefers-reduced-motion: neutralize CSS transitions/animations.
+     Scroll-driven GSAP/Lenis motion is disabled separately in JS. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Font Classes */
+  .font-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+  }
+
+  .font-serif {
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Small Caps / Tracked Text */
+  .text-small-caps {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* Hairline Rule */
+  .hairline {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .hairline-lime {
+    height: 1px;
+    background-color: var(--lime-accent);
+  }
+
+  /* Glassmorphism Card */
+  .glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
+    transition: all 300ms var(--ease-standard);
+  }
+
+  .glass-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--lime-accent);
+    box-shadow: 0 12px 40px rgba(212, 248, 122, 0.08);
+  }
+
+  /* Glass Panel (frosted) */
+  .glass-panel {
+    background: rgba(20, 20, 20, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 16px;
+  }
+
+  /* Photo Polaroid Frame */
+  .polaroid-frame {
+    background: #1a1a1a;
+    border: 8px solid #1a1a1a;
+    border-bottom-width: 32px;
+    border-radius: 4px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Nav underline animation */
+  .nav-link {
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--kimono-white);
+    transition: width 300ms var(--ease-standard);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Form input underline */
+  .form-input-line {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 0;
+    color: var(--kimono-white);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color 300ms var(--ease-standard);
+  }
+
+  .form-input-line::placeholder {
+    color: var(--mouse-gray);
+  }
+
+  .form-input-line:focus {
+    border-bottom-color: var(--lime-accent);
+  }
+}
+
+@layer utilities {
+  /* Lazy load fade-in */
+  .fade-in {
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+  }
+
+  .fade-in.loaded {
+    opacity: 1;
+  }
+
+  /* Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+  }
+}
